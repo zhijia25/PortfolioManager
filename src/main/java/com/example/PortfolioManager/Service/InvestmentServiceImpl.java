@@ -30,8 +30,8 @@ public class InvestmentServiceImpl implements InvestmentService {
         res.put("facebook", "14%");
         res.put("google", "13%");
         res.put("apple", "12%");
-        res.put("tesla", "11");
-        res.put("JP Morgan", "10");
+        res.put("tesla", "11%");
+        res.put("JP Morgan", "10%");
         return res;
     }
 
@@ -41,8 +41,8 @@ public class InvestmentServiceImpl implements InvestmentService {
         res.put("starbucks", "1%");
         res.put("dell", "2%");
         res.put("microsoft", "3%");
-        res.put("oracle", "4");
-        res.put("nike", "4");
+        res.put("oracle", "4%");
+        res.put("nike", "4%");
         return res;
     }
 }

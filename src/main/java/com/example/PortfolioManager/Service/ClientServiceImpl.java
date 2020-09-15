@@ -23,18 +23,17 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ClientEntity> findAll() {
         ArrayList<ClientEntity> res = new ArrayList<>();
-        Date date = new Date();
 
-        List<CashEntity> cashes = new ArrayList<>();
-        CashEntity cashEntity = new CashEntity("12345", 200f, date, "citi");
-        cashes.add(cashEntity);
-        List<Position> investment = new ArrayList<>();
-        SecurityEntity security = new SecurityEntity("67890", "apple", date, 20f);
-        Position position = new Position(security,2);
-        investment.add(position);
+        HashMap<String, Integer> investment1 = new HashMap<>();
+        investment1.put("apple", 20);
+        investment1.put("google", 30);
 
-        ClientEntity client1 = new ClientEntity("123", "andy", cashes, investment);
-        ClientEntity client2 = new ClientEntity("456", "luke", cashes, investment);
+        HashMap<String, Integer> investment2 = new HashMap<>();
+        investment2.put("facebook", 40);
+        investment2.put("nike", 10);
+
+        ClientEntity client1 = new ClientEntity("123", "andy", "citi", investment1);
+        ClientEntity client2 = new ClientEntity("456", "luke", "Barclays", investment2);
         res.add(client1);
         res.add(client2);
         return res;

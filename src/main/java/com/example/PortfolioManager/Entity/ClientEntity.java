@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.HashMap;
 import java.util.List;
 
 //@Document(collection = "client")
@@ -19,8 +20,8 @@ public class ClientEntity {
     @Field("client_name")
     private String clientName;
     @Field("cash")
-    private List<CashEntity> cashes;
+    private String cashes;
     @Field("investment_positions")
-    private List<Position> investmentPositions;
+    private HashMap<String, Integer> investmentPositions;
 
 }
