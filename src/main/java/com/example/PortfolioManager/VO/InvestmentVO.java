@@ -9,9 +9,7 @@ import java.util.HashMap;
 
 @Component
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class InvestmentVO {
+public class InvestmentVO extends VO {
     private float totalAmount;
     private HashMap<String, Float> investments;
     private HashMap<String, String> gainers;

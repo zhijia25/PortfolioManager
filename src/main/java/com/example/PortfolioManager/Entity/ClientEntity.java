@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-@Document(collection = "client")
+//@Document(collection = "client")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

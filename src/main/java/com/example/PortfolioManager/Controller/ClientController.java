@@ -2,7 +2,10 @@ package com.example.PortfolioManager.Controller;
 
 import com.example.PortfolioManager.Entity.ClientEntity;
 import com.example.PortfolioManager.Service.ClientServiceImpl;
+import com.example.PortfolioManager.VO.AllClientResponseVO;
 import com.example.PortfolioManager.VO.ClientVO;
+import com.example.PortfolioManager.VO.ResponseVO;
+import com.example.PortfolioManager.VO.VO;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -28,34 +30,54 @@ public class ClientController {
     private ClientServiceImpl clientService;
     @Autowired
     private ClientVO clientVO;
+    @Autowired
+    private ResponseVO responseVO;
+    @Autowired
+    private AllClientResponseVO allClientResponseVO;
 
     @ResponseBody
     @RequestMapping("/clients")
-    public List<ClientEntity> getAllClients(){
-        return clientService.findAll();
+    public AllClientResponseVO getAllClients(){
+        setOKResponse(clientService.findAll());
+        System.out.println(allClientResponseVO.toString());
+        return allClientResponseVO;
     }
 
     @ResponseBody
     @RequestMapping("/client")
-    public ClientVO getClient(@RequestParam( value = "id", required = true, defaultValue = "0") String clientId){
+    public ResponseVO getClient(@RequestParam( value = "id", required = true, defaultValue = "0") String clientId){
         clientVO.setClientId(clientId);
         clientVO.setClientName(clientService.getClientName(clientId));
         clientVO.setNetWorth(clientService.getNetWorth(clientId));
-        return clientVO;
+
+        setOKResponse(clientVO);
+        return responseVO;
     }
 
-    @Bean
-    // deal with format problem in mongo, get rid of "_class" suffix
-    public MappingMongoConverter mappingMongoConverter(MongoDatabaseFactory factory, MongoMappingContext context, BeanFactory beanFactory) {
-        DbRefResolver dbRefResolver = new DefaultDbRefResolver(factory);
-        MappingMongoConverter mappingConverter = new MappingMongoConverter(dbRefResolver, context);
-        try {
-            mappingConverter.setCustomConversions(beanFactory.getBean(CustomConversions.class));
-        } catch (NoSuchBeanDefinitionException ignore) {
-        }
-
-        mappingConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
-        return mappingConverter;
+    public void setOKResponse(VO vo){
+        responseVO.setCode("200");
+        responseVO.setMessage("OK");
+        responseVO.setData(clientVO);
     }
+
+    public void setOKResponse(List<ClientEntity> clientList){
+        allClientResponseVO.setCode("200");
+        allClientResponseVO.setMessage("OK");
+        allClientResponseVO.setData(clientList);
+    }
+
+//    @Bean
+//    // deal with format problem in mongo, get rid of "_class" suffix
+//    public MappingMongoConverter mappingMongoConverter(MongoDatabaseFactory factory, MongoMappingContext context, BeanFactory beanFactory) {
+//        DbRefResolver dbRefResolver = new DefaultDbRefResolver(factory);
+//        MappingMongoConverter mappingConverter = new MappingMongoConverter(dbRefResolver, context);
+//        try {
+//            mappingConverter.setCustomConversions(beanFactory.getBean(CustomConversions.class));
+//        } catch (NoSuchBeanDefinitionException ignore) {
+//        }
+//
+//        mappingConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
+//        return mappingConverter;
+//    }
 
 }

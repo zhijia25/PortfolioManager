@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
-@Document(collection = "cash")
+//@Document(collection = "cash")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "dividend")
+//@Document(collection = "dividend")
 public class DividendEntity {
     @Id
     private String dividendId;

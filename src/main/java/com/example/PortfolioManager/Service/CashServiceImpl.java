@@ -13,31 +13,39 @@ public class CashServiceImpl implements CashService {
 
     @Override
     public float getTotalAmount(String clientId) {
-        return 0.1f;
+        return 1f;
     }
 
     @Override
     public HashMap<String, Float> getCashes(String clientId) {
-        return null;
+        HashMap<String, Float> res = new HashMap<>();
+        res.put("citi", 2f);
+        return res;
     }
 
     @Override
     public float getTotalIncome(String clientId) {
-        return 0.1f;
+        return 3f;
     }
 
     @Override
     public HashMap<String, Float> getIncomeBreakdown(String clientId) {
-        return null;
+        HashMap<String, Float> res = new HashMap<>();
+        res.put("interest", 0.1f);
+        res.put("dividend", 0.9f);
+        return res;
     }
 
     @Override
     public float getTotalSpend(String clientId) {
-        return 0.1f;
+        return 4f;
     }
 
     @Override
     public HashMap<String, Float> getSpendBreakdown(String clientId) {
-        return null;
+        HashMap<String, Float> res = new HashMap<>();
+        res.put("buy_stock", 0.1f);
+        res.put("pay_loan", 0.9f);
+        return res;
     }
 }

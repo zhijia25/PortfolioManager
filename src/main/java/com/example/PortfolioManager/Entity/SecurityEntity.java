@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "security")
+//@Document(collection = "security")
 public class SecurityEntity {
     @Id
     private String securityId;

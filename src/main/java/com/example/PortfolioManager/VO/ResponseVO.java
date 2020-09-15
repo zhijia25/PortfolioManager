@@ -5,12 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 
 @Component
 @Data
-public class ClientVO extends VO{
-    private String clientId;
-    private String clientName;
-    private HashMap<String, Float> netWorth;
+public class ResponseVO extends VO {
+    private VO data;
+    private String message;
+    private String code;
 }

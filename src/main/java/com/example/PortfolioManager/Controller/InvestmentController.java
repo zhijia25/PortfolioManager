@@ -19,7 +19,7 @@ public class InvestmentController {
         investmentVO.setTotalAmount(investmentService.getTotalAmount(clientId));
         investmentVO.setInvestments(investmentService.getInvestments(clientId));
         investmentVO.setGainers(investmentService.getWinners(clientId));
-        investmentVO.setGainers(investmentService.getLosers(clientId));
+        investmentVO.setLosers(investmentService.getLosers(clientId));
         return investmentVO;
     }
 
