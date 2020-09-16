@@ -20,7 +20,7 @@ public class ClientEntity {
     @Field("client_name")
     private String clientName;
     @Field("cash")
-    private List<CashEntity> cashes;
+    private List<String> cashes;
     @Field("investment_positions")
     private HashMap<String, Integer> investmentPositions;
 

@@ -8,5 +8,5 @@ import java.util.Date;
 
 @Repository
 public interface SecurityDAO extends MongoRepository<SecurityEntity, Integer> {
-    public SecurityEntity findBySecurityIdaAndDate(String securityId, String dateStr);
+    public SecurityEntity findBySecurityIdAndDate(String securityId, String date);
 }

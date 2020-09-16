@@ -7,7 +7,13 @@ import com.example.PortfolioManager.Entity.SecurityEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class InvestmentServiceImpl implements InvestmentService {
@@ -20,19 +26,20 @@ public class InvestmentServiceImpl implements InvestmentService {
     @Override
     public double[] getTotalAmount(String clientId) {
         double[] totalAmount30Days = new double[30];
-        int day = 11;
+        int day = 12;
         String prefix1 = "2020/8/";
         String prefix2 = "2020/9/";
+        String prefix = prefix2;
+        String date;
         for (int i = 0; i < 30; i++) {
-            String s;
-            if (day - i <= 0) {
-                day = day + 31 - i;
-                s = prefix1 + day;
+            if (day <= 0) {
+                day = day + 31 - 1;
+                prefix = prefix1;
             } else {
-                day = day - i;
-                s = prefix2 + day;
+                day--;
             }
-            HashMap<String, Double> inv = getInvestments(clientId, s);
+            date = prefix + day;
+            HashMap<String, Double> inv = getInvestments(clientId, date);
             for (Map.Entry<String, Double> entry : inv.entrySet()) {
                 totalAmount30Days[i] += entry.getValue();
             }
@@ -42,24 +49,47 @@ public class InvestmentServiceImpl implements InvestmentService {
 
 
     @Override
-    public HashMap<String, Double> getInvestments(String clientId, String date) {
+    public HashMap<String, Double> getInvestments(String clientId, String dateStr) {
         HashMap<String, Double> invValue = new HashMap<>();
-        ClientEntity clientEntity = clientDAO.findByClientId(clientId);
-        HashMap<String, Integer> positionMap = clientEntity.getInvestmentPositions();
-        for (Map.Entry<String, Integer> entry : positionMap.entrySet()) {
-            String securityID = entry.getKey();
-            Integer qty = entry.getValue();
-            SecurityEntity securityEntity = securityDAO.findBySecurityIdaAndDate(securityID, date);
-            //if can't find Security Record at a date, it's weekend or vacation, and there is not any updated security information.
-            if (securityEntity != null) {
-                invValue.put(securityID, qty.floatValue() * (double)securityEntity.getPrice());
-            } else {
-               getInvestments(clientId,changeDate(date));
+        List<ClientEntity> clientEntity;
+        if (clientDAO != null) {
+            clientEntity = clientDAO.findByClientId(clientId);
+            HashMap<String, Integer> positionMap = clientEntity.get(0).getInvestmentPositions();
+            for (Map.Entry<String, Integer> entry : positionMap.entrySet()) {
+                String securityID = entry.getKey();
+                Integer qty = entry.getValue();
+                SecurityEntity securityEntity = securityDAO.findBySecurityIdAndDate(securityID, dateStr);
+
+                //if can't find Security Record at a date, it's on weekends or holidays, and there won't be any updated
+                //security information. So we try to get data one day earlier.
+                if (securityEntity != null) {
+                    invValue.put(securityID, qty.doubleValue() * (double) securityEntity.getPrice());
+                } else {
+                    return getInvestments(clientId, changeDate(dateStr));
+                }
+
             }
+        } else {
+            System.out.println("clientDAO is null" + "/" + clientId + "/" + dateStr);
         }
         return invValue;
     }
 
+    private Date strToDate(String dateStr) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = null;
+        try {
+            date = dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    /**
+     * @param originStr a String instance that represents original date
+     * @return a String instance that represents a date which is one-day earlier that original date
+     */
     private String changeDate(String originStr) {
         String[] strArray = originStr.split("/");
         int year = Integer.valueOf(strArray[0]);
@@ -81,7 +111,9 @@ public class InvestmentServiceImpl implements InvestmentService {
             month = 12;
             day = 31;
         }
-        return ""+year+"/"+month+"/"+day;
+//        String newDate = "" + year + "/" + month + "/" + day;
+//        System.out.println(originStr + "(old|new)" + newDate);
+        return "" + year + "/" + month + "/" + day;
     }
 
     @Override
