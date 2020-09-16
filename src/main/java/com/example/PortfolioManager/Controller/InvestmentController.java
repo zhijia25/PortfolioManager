@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class InvestmentController {
     @Autowired
-    private InvestmentServiceImpl investmentService;
+    private InvestmentServiceImpl investmentServiceImpl;
     @Autowired
     private InvestmentVO investmentVO;
 
     @GetMapping("/investment")
-    public InvestmentVO getInvestment(@RequestParam( value = "id", required = true, defaultValue = "0") String clientId){
-        investmentVO.setTotalAmount(investmentService.getTotalAmount(clientId));
-        investmentVO.setInvestments(investmentService.getInvestments(clientId));
-        investmentVO.setGainers(investmentService.getWinners(clientId));
-        investmentVO.setGainers(investmentService.getLosers(clientId));
+    public InvestmentVO getInvestment(@RequestParam(value = "id", required = true, defaultValue = "0") String clientId,
+                                      @RequestParam(value = "date", required = false, defaultValue = "2020/9/11") String date) {
+        investmentVO.setTotalAmount(investmentServiceImpl.getTotalAmount(clientId));
+        investmentVO.setInvestments(investmentServiceImpl.getInvestments(clientId, date));
+        investmentVO.setGainers(investmentServiceImpl.getWinners(clientId));
+        investmentVO.setGainers(investmentServiceImpl.getLosers(clientId));
         return investmentVO;
     }
 

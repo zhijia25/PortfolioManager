@@ -44,18 +44,18 @@ public class ClientController {
         return clientVO;
     }
 
-    @Bean
-    // deal with format problem in mongo, get rid of "_class" suffix
-    public MappingMongoConverter mappingMongoConverter(MongoDatabaseFactory factory, MongoMappingContext context, BeanFactory beanFactory) {
-        DbRefResolver dbRefResolver = new DefaultDbRefResolver(factory);
-        MappingMongoConverter mappingConverter = new MappingMongoConverter(dbRefResolver, context);
-        try {
-            mappingConverter.setCustomConversions(beanFactory.getBean(CustomConversions.class));
-        } catch (NoSuchBeanDefinitionException ignore) {
-        }
-
-        mappingConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
-        return mappingConverter;
-    }
+//    @Bean
+//    deal with format problem in mongo, get rid of "_class" suffix
+//    public MappingMongoConverter mappingMongoConverter(MongoDatabaseFactory factory, MongoMappingContext context, BeanFactory beanFactory) {
+//        DbRefResolver dbRefResolver = new DefaultDbRefResolver(factory);
+//        MappingMongoConverter mappingConverter = new MappingMongoConverter(dbRefResolver, context);
+//        try {
+//            mappingConverter.setCustomConversions(beanFactory.getBean(CustomConversions.class));
+//        } catch (NoSuchBeanDefinitionException ignore) {
+//        }
+//
+//        mappingConverter.setTypeMapper(new DefaultMongoTypeMapper(null));
+//        return mappingConverter;
+//    }
 
 }

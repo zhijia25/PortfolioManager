@@ -12,9 +12,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "security")
+@Document(collection = "Security")
 public class SecurityEntity {
-    @Id
+    @Field("security_id")
     private String securityId;
     @Field("security_name")
     private String securityName;

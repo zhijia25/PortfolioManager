@@ -12,8 +12,8 @@ import java.util.HashMap;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InvestmentVO {
-    private float totalAmount;
-    private HashMap<String, Float> investments;
+    private double[] totalAmount;
+    private HashMap<String, Double> investments;
     private HashMap<String, String> gainers;
     private HashMap<String, String> losers;
 }

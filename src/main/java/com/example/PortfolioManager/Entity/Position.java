@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Position {
     private SecurityEntity security;
-    int qty;
+    private int qty;
 }

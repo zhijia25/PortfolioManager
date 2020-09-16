@@ -18,5 +18,4 @@ public class CashVO {
      private HashMap<String, Float> incomeBreakdown;
      private float totalSpend;
      private HashMap<String, Float> spendBreakdown;
-
 }
