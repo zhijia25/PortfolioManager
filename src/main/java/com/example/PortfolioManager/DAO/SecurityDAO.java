@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface SecurityDAO extends MongoRepository<SecurityEntity, Integer> {
     SecurityEntity findBySecurityIdAndDate(String securityId, String date);
-    List<SecurityEntity> findBySecurityName(String securityName);
+    List<SecurityEntity> findBySecurityId(String securityName);
 
 }

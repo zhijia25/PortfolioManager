@@ -180,8 +180,8 @@ public class InvestmentServiceImpl implements InvestmentService {
 
 
 
-    public HashMap<Integer, Double> getHistoryValue(String securityName) {
-        List<SecurityEntity> historyValues = securityDAO.findBySecurityName(securityName);
+    public HashMap<Integer, Double> getHistoryValue(String securityId) {
+        List<SecurityEntity> historyValues = securityDAO.findBySecurityId(securityId);
         HashMap<Integer, Double> res = new HashMap<>();
         for(int i=0; i<14; i++){
             res.put(i+1, historyValues.get(i).getPrice());

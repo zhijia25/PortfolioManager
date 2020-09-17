@@ -30,9 +30,9 @@ public class InvestmentController {
     }
 
     @GetMapping("/history_value")
-    public SecurityVO getHistoryValue(@RequestParam( value = "security", required = true, defaultValue = "Adobe Inc.") String securityName){
-        securityVO.setSecurityName(securityName);
-        securityVO.setHistoryValue(investmentService.getHistoryValue(securityName));
+    public SecurityVO getHistoryValue(@RequestParam( value = "security", required = true, defaultValue = "AAPL") String securityId){
+        securityVO.setSecurityId(securityId);
+        securityVO.setHistoryValue(investmentService.getHistoryValue(securityId));
         return securityVO;
     }
 

@@ -8,6 +8,6 @@ import java.util.HashMap;
 @Component
 @Data
 public class SecurityVO extends VO {
-    private String securityName;
+    private String securityId;
     private HashMap<Integer, Double> historyValue;
 }
