@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class InvestmentServiceImpl implements InvestmentService {
 
     @Override
     public double[] getTotalAmount(String clientId) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.0000");
         double[] totalAmount30Days = new double[30];
         int day = 12;
         String prefix1 = "2020/8/";
@@ -43,6 +45,7 @@ public class InvestmentServiceImpl implements InvestmentService {
             for (Map.Entry<String, Double> entry : inv.entrySet()) {
                 totalAmount30Days[i] += entry.getValue();
             }
+            decimalFormat.format(totalAmount30Days[i]);
         }
         return totalAmount30Days;
     }
@@ -50,8 +53,10 @@ public class InvestmentServiceImpl implements InvestmentService {
 
     @Override
     public HashMap<String, Double> getInvestments(String clientId, String dateStr) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.0000");
         HashMap<String, Double> invValue = new HashMap<>();
         List<ClientEntity> clientEntity;
+
         if (clientDAO != null) {
             clientEntity = clientDAO.findByClientId(clientId);
             HashMap<String, Integer> positionMap = clientEntity.get(0).getInvestmentPositions();
@@ -59,12 +64,12 @@ public class InvestmentServiceImpl implements InvestmentService {
                 String securityID = entry.getKey();
                 Integer qty = entry.getValue();
                 SecurityEntity securityEntity = securityDAO.findBySecurityIdAndDate(securityID, dateStr);
-
                 //if can't find Security Record at a date, it's on weekends or holidays, and there won't be any updated
                 //security information. So we try to get data one day earlier.
                 if (securityEntity != null) {
                     invValue.put(securityID, qty.doubleValue() * (double) securityEntity.getPrice());
                 } else {
+                    System.out.println("security is null");
                     return getInvestments(clientId, changeDate(dateStr));
                 }
 
@@ -111,9 +116,7 @@ public class InvestmentServiceImpl implements InvestmentService {
             month = 12;
             day = 31;
         }
-//        String newDate = "" + year + "/" + month + "/" + day;
-//        System.out.println(originStr + "(old|new)" + newDate);
-        return "" + year + "/" + month + "/" + day;
+        return year + "/" + month + "/" + day;
     }
 
     @Override
