@@ -10,11 +10,11 @@ import java.util.HashMap;
 @Component
 @Data
 public class CashVO extends VO {
-     private float totalAmount;
-     private HashMap<String, Float> cashes;
-     private float totalIncome;
-     private HashMap<String, Float> incomeBreakdown;
-     private float totalSpend;
-     private HashMap<String, Float> spendBreakdown;
+     private double totalAmount;
+     private HashMap<String, Double> cashes;
+     private double totalIncome;
+     private HashMap<String, Double> incomeBreakdown;
+     private double totalSpend;
+     private HashMap<String, Double> spendBreakdown;
 
 }

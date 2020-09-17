@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@Document(collection = "dividend")
+@Document(collection = "Dividend")
 public class DividendEntity {
     @Id
     private String dividendId;
@@ -23,5 +23,5 @@ public class DividendEntity {
     @Field("date")
     Date date;
     @Field("dividend_amount")
-    float dividendAmount;
+    double dividendAmount;
 }

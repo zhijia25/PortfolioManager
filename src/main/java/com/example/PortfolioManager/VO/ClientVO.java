@@ -12,5 +12,5 @@ import java.util.HashMap;
 public class ClientVO extends VO{
     private String clientId;
     private String clientName;
-    private HashMap<String, Float> netWorth;
+    private HashMap<Integer, Double> netWorth;
 }

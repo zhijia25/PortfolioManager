@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
-//@Document(collection = "cash")
+@Document(collection = "Cash")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +16,7 @@ public class CashEntity {
     @Field("account_number")
     private String accountNumber;
     @Field("value")
-    private float value;
+    private double value;
     @Field("date")
     private Date date;
     @Field("institution_name")

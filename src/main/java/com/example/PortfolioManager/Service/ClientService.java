@@ -15,5 +15,5 @@ public interface ClientService {
     String getClientName(String clientId);
 
     //    returns net worth = cash + investment of the client
-    HashMap<String, Float> getNetWorth(String clientId);
+    HashMap<Integer, Double> getNetWorth(String clientId);
 }

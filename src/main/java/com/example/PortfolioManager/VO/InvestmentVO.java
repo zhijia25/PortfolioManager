@@ -10,8 +10,10 @@ import java.util.HashMap;
 @Component
 @Data
 public class InvestmentVO extends VO {
-    private float totalAmount;
-    private HashMap<String, Float> investments;
-    private HashMap<String, String> gainers;
-    private HashMap<String, String> losers;
+    private double totalAmount;
+    private HashMap<String, Double> investments;
+    private HashMap<String, Double> gainers;
+    private HashMap<String, Double> losers;
+    private HashMap<String, Double> marketMove;
+    private double holdingMove;
 }

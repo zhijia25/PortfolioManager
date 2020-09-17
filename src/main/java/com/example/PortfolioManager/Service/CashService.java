@@ -7,20 +7,20 @@ import java.util.HashMap;
 @Service
 public interface CashService {
     //    returns the total value of client's cash accounts
-    float getTotalAmount(String clientId);
+    double getTotalAmount(String clientId);
 
     //    returns each account and its value
-    HashMap<String, Float> getCashes(String clientId);
+    HashMap<String, Double> getCashes(String clientId);
 
     //    returns total income of the client (dividend + interest + ...., can be mocked)
-    float getTotalIncome(String clientId);
+    double getTotalIncome(String clientId);
 
     //    returns each component and its ratio of total income
-    HashMap<String, Float> getIncomeBreakdown(String clientId);
+    HashMap<String, Double> getIncomeBreakdown(String clientId);
 
     //    returns total spend of the client (buy stock...)
-    float getTotalSpend(String clientId);
+    double getTotalSpend(String clientId);
 
     //    returns each component and its ratio of total spend
-    HashMap<String, Float> getSpendBreakdown(String clientId);
+    HashMap<String, Double> getSpendBreakdown(String clientId);
 }

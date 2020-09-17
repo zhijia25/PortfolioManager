@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CashDAO extends MongoRepository<CashEntity, Integer> {
+    CashEntity findByAccountNumber(int parseInt);
 }
